@@ -1,46 +1,109 @@
-import { links } from "@/utils/NavbarLinks";
-import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Box, useTheme, Typography } from "@mui/material";
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import {
+    LightModeOutlined,
+    DarkModeOutlined,
+    Menu as MenuIcon,
+    Search,
+    SettingsOutlined,
+    ArrowDropDownOutlined,
+} from "@mui/icons-material";
+import {
+    AppBar,
+    Button,
+    Box,
+    IconButton,
+    InputBase,
+    Toolbar,
+    Menu,
+    MenuItem,
+    useTheme,
+} from "@mui/material";
 import FlexBetween from "./FlexBetween";
 import ModeToggle from "./ThemeToggleButton";
+
 const Navbar = () => {
-    const { palette } = useTheme();
-    console.log(palette)
-    const [active, setActive] = useState("home");
-    const location = useLocation();
+    const theme = useTheme();
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isOpen = Boolean(anchorEl);
+    //const handleClick = (event) => setAnchorEl(event.currentTarget);
+    //const handleClose = () => setAnchorEl(null);
 
     return (
-        <FlexBetween mb="0.25rem" p="0.5rem 0" color={palette.grey[300]}>
-            <Box gap="0.75rem" alignItems="center" display="flex" justifyContent="space-between">
-                <LeaderboardIcon sx={{ fontSize: "28px" }} />
-                <Typography variant="h4" fontSize="1.2rem" className="ml-2">
-                    XYZ
-                </Typography>
-            </Box>
-            <FlexBetween gap="2rem">
-                {links.map((link) => (
-                    <Box
-                        key={link.label}
-                        className={`capitalize ${active === link.label ? 'text-gray-100 no-underline' : 'text-gray-700'}`}
+        <AppBar
+            sx={{
+                position: "static",
+                background: "none",
+                boxShadow: "none",
+            }}
+        >
+            <Toolbar sx={{ justifyContent: "space-between" }}>
+                {/* LEFT SIDE */}
+                <FlexBetween>
+                    <IconButton
+                    //onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     >
-                        <Link
-                            to={link.path}
-                            onClick={() => setActive(link.label)}
-                            className={`capitalize font-light tracking-wide `}
-                            style={{ textDecoration: 'none', color: location.pathname === link.path ? palette.primary.main : palette.grey[700] }}
+                        <MenuIcon />
+                    </IconButton>
+                    <FlexBetween
+                        //backgroundColor={theme.palette.background.alt}
+                        borderRadius="9px"
+                        gap="3rem"
+                        p="0.1rem 1.5rem"
+                    >
+                        <InputBase placeholder="Search..." />
+                        <IconButton>
+                            <Search />
+                        </IconButton>
+                    </FlexBetween>
+                </FlexBetween>
+
+                {/* RIGHT SIDE */}
+                <FlexBetween gap="1.5rem">
+                    {theme.palette.mode === "dark" ? (
+                        <DarkModeOutlined sx={{ fontSize: "25px" }} />
+                    ) : (
+                        <LightModeOutlined sx={{ fontSize: "25px" }} />
+                    )}
+                    <IconButton>
+                        <SettingsOutlined sx={{ fontSize: "25px" }} />
+                    </IconButton>
+                    <ModeToggle />
+                    <FlexBetween>
+                        <Button
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                textTransform: "none",
+                                gap: "1rem",
+                            }}
                         >
-                            {link.label}
-                        </Link>
-                    </Box>
-                ))}
-                <Typography variant="body1" sx={{ color: palette.primary[palette.mode] }}>
-                    {palette.mode} mode
-                </Typography>
-            </FlexBetween>
-            <ModeToggle />
-        </FlexBetween>
+                            <Box
+                                component="img"
+                                alt="profile"
+                                height="32px"
+                                width="32px"
+                                borderRadius="50%"
+                                sx={{ objectFit: "cover" }}
+                            />
+
+                            <ArrowDropDownOutlined
+                            //sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+                            />
+                        </Button>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={isOpen}
+                            //onClose={handleClose}
+                            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                        >
+                            <MenuItem>Log Out</MenuItem>
+                        </Menu>
+                    </FlexBetween>
+                </FlexBetween>
+            </Toolbar>
+        </AppBar>
     );
 };
 
