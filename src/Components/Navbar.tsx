@@ -35,6 +35,9 @@ const Navbar = () => {
                         </Link>
                     </Box>
                 ))}
+                <Typography variant="body1" sx={{ color: palette.primary[palette.mode] }}>
+                    {palette.mode} mode
+                </Typography>
             </FlexBetween>
             <ModeToggle />
         </FlexBetween>

@@ -63,7 +63,8 @@ export const getThemeSettings = (mode: Theme) => ({
         primary: {
             ...tokens.primary,
             main: tokens.primary[500],
-            light: tokens.primary[400],
+            light: tokens.primary[900],
+            dark: tokens.primary[500]
         },
         secondary: {
             ...tokens.secondary,
