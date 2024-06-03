@@ -13,9 +13,9 @@ const Navbar = () => {
 
     return (
         <FlexBetween mb="0.25rem" p="0.5rem 0" color={palette.grey[300]}>
-            <Box gap="0.75rem" alignItems="center" display="flex" justifyContent="space-between">
+            <Box gap="0.75rem" alignItems="center" display="flex" justifyContent="space-between" style={{ color: palette.secondary.dark }}>
                 <LeaderboardIcon sx={{ fontSize: "28px" }} />
-                <Typography variant="h4" fontSize="1.2rem" className="ml-2">
+                <Typography variant="h4" fontSize="1.2rem" className="ml-2" >
                     XYZ
                 </Typography>
             </Box>
@@ -28,16 +28,14 @@ const Navbar = () => {
                         <Link
                             to={link.path}
                             onClick={() => setActive(link.label)}
-                            className={`capitalize font-light tracking-wide `}
-                            style={{ textDecoration: 'none', color: location.pathname === link.path ? palette.primary.main : palette.grey[700] }}
+                            className={`capitalize font-light tracking-wide text-base`}
+                            c={{ textDecoration: 'none', color: location.pathname === link.path ? palette.secondary.dark : palette.primary.main }}
                         >
                             {link.label}
                         </Link>
                     </Box>
                 ))}
-                <Typography variant="body1" sx={{ color: palette.primary[palette.mode] }}>
-                    {palette.mode} mode
-                </Typography>
+
             </FlexBetween>
             <ModeToggle />
         </FlexBetween>
